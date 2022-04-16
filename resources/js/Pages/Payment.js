@@ -24,6 +24,8 @@ const Checkout2 = () => {
           
                 let checkresult =  axios.get('/api/subunique/'+subid).then(response => response.data);   
                 checkresult.then(function(result) {
+
+                    console.log(realtoken)
                 
 
                     if (result.currency == "GBP"){
