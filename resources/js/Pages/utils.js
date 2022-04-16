@@ -1,6 +1,6 @@
 export function gettoken() {
   const token = process.env.MIX_TOKEN
-  return "AVjrakqLt_i_ERv8hDBjMmHom5OlWZ9lX6Cnn2hxpDnn3a3DQx7dxXPg6GfDKZ96MMtzT3DytNDIbjsz"
+  return "AVAVAj85C435w1EbPcYTmWIShWhhZvekY7b0sHeG6ieGXoGK7UAVhAf6_ag6kF_Od30h3H-sjIM9Uq1r"
   ///return token.toString();
   }
  
