@@ -1,0 +1,42 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.16.5",
+        "autoprefixer": "^10.4.0",
+        "axios": "^0.21.4",
+        "browser-sync": "^2.27.7",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.4.5",
+        "tailwindcss": "^3.0.7"
+    },
+    "dependencies": {
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@iconify/react": "^3.1.0",
+        "@inertiajs/inertia": "^0.10.1",
+        "@inertiajs/inertia-react": "^0.7.1",
+        "@inertiajs/server": "^0.1.0",
+        "flutterwave-react-v3": "^1.2.0",
+        "moment": "^2.29.1",
+        "query-string": "^7.0.1",
+        "react": "^17.0.2",
+        "react-copy-to-clipboard": "^5.0.4",
+        "react-dom": "^17.0.2",
+        "react-paypal-button-v2": "^2.6.3",
+        "react-router": "^6.2.1",
+        "react-router-dom": "^6.2.1",
+        "sfcookies": "^1.0.2",
+        "tiny-slider-react": "^0.5.4",
+        "webpack-node-externals": "^3.0.0"
+    }
+}

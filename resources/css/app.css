@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[type=checkbox]:checked,
+[type=radio]:checked {
+	border-color: transparent;
+	background-color: currentColor;
+	background-size: 100% 100%;
+	background-position: 50%;
+	background-repeat: no-repeat
+}
+
+[type=checkbox]:checked {
+	background-image: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PScwIDAgMTYgMTYnIGZpbGw9JyNmZmYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTEyLjIwNyA0Ljc5M2ExIDEgMCAwMTAgMS40MTRsLTUgNWExIDEgMCAwMS0xLjQxNCAwbC0yLTJhMSAxIDAgMDExLjQxNC0xLjQxNEw2LjUgOS4wODZsNC4yOTMtNC4yOTNhMSAxIDAgMDExLjQxNCAweicvPjwvc3ZnPg==)
+}
