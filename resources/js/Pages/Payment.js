@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import { PayPalButton } from "react-paypal-button-v2";
 import { Head } from '@inertiajs/inertia-react'
 import CoinbaseCommerceButton from 'react-coinbase-commerce';
-import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
+
 
 import axios from 'axios';
 import queryString from 'query-string'
@@ -113,7 +113,6 @@ const Checkout2 = () => {
 
             <div className='text-left w-full md:w-10/12 '>
 
-<div style={{background: 'rgb(242, 169, 0)', outline: 'none'}}  className="mx-auto flex justify-between w-full cursor-pointer rounded-xl  text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6">
 <CoinbaseCommerceButton 
 
 
@@ -135,8 +134,7 @@ onChargeSuccess={() => {
 
 }}
 
-styled={false} className="text-center" checkoutId={coinbasetoken}/>
-    </div>
+styled={true} className="text-center" checkoutId={coinbasetoken}/>
 
 
 </div>
