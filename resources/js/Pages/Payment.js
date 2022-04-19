@@ -16,6 +16,7 @@ const Checkout2 = () => {
     const parsed = queryString.parse(location.search);
     const subid = parsed.subid;
     const [packname,setPackName] = useState("")
+    const [coinbasetoken,setCoinBase] = useState("")
     const [lastprice,setLastPrice] = useState(11.99)
     const [lastprice2,setLastPrice2] = useState(11.99)
     const realtoken = gettoken()
@@ -48,31 +49,7 @@ const Checkout2 = () => {
                     setPackName(result.packagename)
                     setLastPrice(result.packageprice)
                     setLastPrice2(result.total)
-                    const headers = {
-                        'Content-Type': 'application/json',
-                        'Content-Type': 'application/json',
-                        'X-CC-Version': '2018-03-22'
-                      }
-                      const mydata = {
-                        "name": "The Sovereign Individual",
-                        "description": "Mastering the Transition to the Information Age",
-                        "local_price": {
-                            "amount": "100.00",
-                            "currency": "USD"
-                        },
-                      "pricing_type": "fixed_price"
-                    }
-
-                    let checkresult2 =  axios.post('https://api.commerce.coinbase.com/checkouts',mydata, {
-                        headers: headers
-                      }).then(response => response.data);   
-                    checkresult2.then(function(result) {
-                        console.log("coinbase")
-                        console.log(result)
-
-
-                    })
-
+                    setCoinBase("8272b5bf-94af-47b6-8824-420e5809be61")
 
     
                     })
@@ -123,6 +100,38 @@ const Checkout2 = () => {
 
             </div>
 
+
+            <div className='text-left w-full md:w-10/12 '>
+
+<div style={{background: 'rgb(242, 169, 0)', outline: 'none'}}  className="mx-auto flex justify-between w-full cursor-pointer rounded-xl  text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6">
+<CoinbaseCommerceButton 
+
+
+onChargeSuccess={() => {
+
+    console.log("ok")
+    
+    let checkresult =  axios.get('/api/paidsub/'+subid).then(response => response.data);   
+    checkresult.then(function(result) {
+     
+        window.location.href = "/completed";
+
+    })
+
+    
+
+  
+      
+
+}}
+
+styled={false} className="text-center" checkoutId={coinbasetoken}/>
+    </div>
+
+
+</div>
+
+
                 <PayPalButton
        amount = {lastprice2}
       shippingPreference="NO_SHIPPING"
@@ -157,35 +166,6 @@ onSuccess={(details, data) => {
 }}
 />
 
-<div className='text-center w-full'>
-
-<div style={{background: 'rgb(55, 211, 72)', outline: 'none'}}  className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6">
-<CoinbaseCommerceButton 
-
-
-onChargeSuccess={() => {
-
-    console.log("ok")
-    
-    let checkresult =  axios.get('/api/paidsub/'+subid).then(response => response.data);   
-    checkresult.then(function(result) {
-     
-        window.location.href = "/completed";
-
-    })
-
-    
-
-  
-      
-
-}}
-
-styled={false} checkoutId={'d7c30b77-f18f-4f65-83e5-2c411c67873a'}/>
-    </div>
-
-
-</div>
                   
 
 <div>
