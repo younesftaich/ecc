@@ -19,6 +19,7 @@ const Checkout2 = () => {
     const [paypalready,setpaypalready] = useState(false)
     const [realtoken,settoken] = useState(null)
     const [coinbasetoken,setCoinBase] = useState("")
+    const [mycurrency,setCurrency] = useState("")
     const [lastprice,setLastPrice] = useState(11.99)
     const [lastprice2,setLastPrice2] = useState(11.99)
     //const realtoken = gettoken()
@@ -29,28 +30,27 @@ const Checkout2 = () => {
           
                 let checkresult =  axios.get('/api/subunique/'+subid).then(response => response.data);   
                 checkresult.then(function(result) {
-
                     
-
                     settoken(result.paypaltoken)
                 
                     setCoinBase(result.coinbase)
+                    setCurrency(result.currency)
 
-                    if (result.currency == "GBP"){
-                      //  console.log("GBP")
-                    }
-                    else if (result.currency == "USD"){
-                      //  console.log("USD")
+                    // if (result.currency == "GBP"){
+                    //   //  console.log("GBP")
+                    // }
+                    // else if (result.currency == "USD"){
+                    //   //  console.log("USD")
 
-                      window.location.href = '/usd/payment?subid='+subid;
+                    //   window.location.href = '/usd/payment?subid='+subid;
 
 
-                    }
-                    else if (result.currency == "EUR"){
-                      //  console.log("EUR")
-                      window.location.href = '/eur/payment?subid='+subid;
+                    // }
+                    // else if (result.currency == "EUR"){
+                    //   //  console.log("EUR")
+                    //   window.location.href = '/eur/payment?subid='+subid;
 
-                    }
+                    // }
                     setPackName(result.packagename)
                     setLastPrice(result.packageprice)
                     setLastPrice2(result.total)
@@ -62,11 +62,11 @@ const Checkout2 = () => {
       }, [subid]);
       
     useEffect(() => {
-        if ( realtoken != null){
+        if ( realtoken != null && mycurrency != ""){
             setpaypalready(true)
         }
         
-      }, [realtoken]);
+      }, [realtoken,mycurrency]);
     
    return (
     <div className="font-Poppins font-semibold min-h-screen bg-indigo-100">
@@ -145,9 +145,9 @@ styled={false} className="text-center" checkoutId={coinbasetoken}/>
                 <PayPalButton
        amount = {lastprice2}
       shippingPreference="NO_SHIPPING"
-       currency="GBP"
+       currency={mycurrency}
        options={{
-        currency: "GBP",
+        currency: mycurrency,
          clientId: realtoken
        }}
        
