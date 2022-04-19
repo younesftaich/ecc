@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { PayPalButton } from "react-paypal-button-v2";
 import { Head } from '@inertiajs/inertia-react'
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
+import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 
 import axios from 'axios';
 import queryString from 'query-string'
@@ -46,6 +48,32 @@ const Checkout2 = () => {
                     setPackName(result.packagename)
                     setLastPrice(result.packageprice)
                     setLastPrice2(result.total)
+                    const headers = {
+                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CC-Version': '2018-03-22'
+                      }
+                      const mydata = {
+                        "name": "The Sovereign Individual",
+                        "description": "Mastering the Transition to the Information Age",
+                        "local_price": {
+                            "amount": "100.00",
+                            "currency": "USD"
+                        },
+                      "pricing_type": "fixed_price"
+                    }
+
+                    let checkresult2 =  axios.post('https://api.commerce.coinbase.com/checkouts',mydata, {
+                        headers: headers
+                      }).then(response => response.data);   
+                    checkresult2.then(function(result) {
+                        console.log("coinbase")
+                        console.log(result)
+
+
+                    })
+
+
     
                     })
                      })  ();
@@ -128,6 +156,36 @@ onSuccess={(details, data) => {
 
 }}
 />
+
+<div className='text-center w-full'>
+
+<div style={{background: 'rgb(55, 211, 72)', outline: 'none'}}  className="mx-auto flex justify-between w-full cursor-pointer   text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6">
+<CoinbaseCommerceButton 
+
+
+onChargeSuccess={() => {
+
+    console.log("ok")
+    
+    let checkresult =  axios.get('/api/paidsub/'+subid).then(response => response.data);   
+    checkresult.then(function(result) {
+     
+        window.location.href = "/completed";
+
+    })
+
+    
+
+  
+      
+
+}}
+
+styled={false} checkoutId={'d7c30b77-f18f-4f65-83e5-2c411c67873a'}/>
+    </div>
+
+
+</div>
                   
 
 <div>
