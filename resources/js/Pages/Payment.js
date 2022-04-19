@@ -16,10 +16,12 @@ const Checkout2 = () => {
     const parsed = queryString.parse(location.search);
     const subid = parsed.subid;
     const [packname,setPackName] = useState("")
+    const [paypalready,setpaypalready] = useState(false)
+    const [realtoken,settoken] = useState(null)
     const [coinbasetoken,setCoinBase] = useState("")
     const [lastprice,setLastPrice] = useState(11.99)
     const [lastprice2,setLastPrice2] = useState(11.99)
-    const realtoken = gettoken()
+    //const realtoken = gettoken()
     useEffect(() => {
         if ( subid != null){
            
@@ -28,8 +30,11 @@ const Checkout2 = () => {
                 let checkresult =  axios.get('/api/subunique/'+subid).then(response => response.data);   
                 checkresult.then(function(result) {
 
-                    console.log(realtoken)
+                    
+
+                    settoken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
                 
+                    setCoinBase("8272b5bf-94af-47b6-8824-420e5809be61")
 
                     if (result.currency == "GBP"){
                       //  console.log("GBP")
@@ -49,14 +54,19 @@ const Checkout2 = () => {
                     setPackName(result.packagename)
                     setLastPrice(result.packageprice)
                     setLastPrice2(result.total)
-                    setCoinBase("8272b5bf-94af-47b6-8824-420e5809be61")
 
     
                     })
                      })  ();
         }   
       }, [subid]);
-
+      
+    useEffect(() => {
+        if ( realtoken != null){
+            setpaypalready(true)
+        }
+        
+      }, [realtoken]);
     
    return (
     <div className="font-Poppins font-semibold min-h-screen bg-indigo-100">
@@ -131,7 +141,7 @@ styled={false} className="text-center" checkoutId={coinbasetoken}/>
 
 </div>
 
-
+{ paypalready ? (
                 <PayPalButton
        amount = {lastprice2}
       shippingPreference="NO_SHIPPING"
@@ -165,7 +175,7 @@ onSuccess={(details, data) => {
 
 }}
 />
-
+) : ( <h1>Loading ...</h1>)}
                   
 
 <div>
