@@ -32,9 +32,9 @@ const Checkout2 = () => {
 
                     
 
-                    settoken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
+                    settoken(result.paypaltoken)
                 
-                    setCoinBase("8272b5bf-94af-47b6-8824-420e5809be61")
+                    setCoinBase(result.coinbase)
 
                     if (result.currency == "GBP"){
                       //  console.log("GBP")
