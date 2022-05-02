@@ -30,7 +30,7 @@ const Checkout2 = () => {
           
                 let checkresult =  axios.get('/api/subunique/'+subid).then(response => response.data);   
                 checkresult.then(function(result) {
-                    settoken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
+                    settoken("AbHJn6ZYeQ0obUVySZEWhgwlyx7QSu3d9-iLp6DZrmUBnW-BL0vMtwxX3_Ukp0vKgtI9aq9nXwDGyf-d")
 
                 
                     setCoinBase(result.coinbase)
@@ -111,33 +111,7 @@ const Checkout2 = () => {
             </div>
 
 
-            <div className='text-left w-full md:w-10/12 '>
-
-<CoinbaseCommerceButton 
-
-
-onChargeSuccess={() => {
-
-    console.log("ok")
     
-    let checkresult =  axios.get('/api/paidsub/'+subid).then(response => response.data);   
-    checkresult.then(function(result) {
-     
-        window.location.href = "/completed";
-
-    })
-
-    
-
-  
-      
-
-}}
-
-styled={true} className="text-center" checkoutId={coinbasetoken}/>
-
-
-</div>
 
 { paypalready ? (
                 <PayPalButton
