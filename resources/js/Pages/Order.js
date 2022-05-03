@@ -52,8 +52,8 @@ const Checkout2 = () => {
 
                     // }
                     setPackName(result.packagename)
-                    setLastPrice(0.05)
-                    setLastPrice2(0.05)
+                    setLastPrice(10.05)
+                    setLastPrice2(10.05)
 
     
                     })
