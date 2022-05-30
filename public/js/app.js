@@ -21062,7 +21062,7 @@ var Checkout2 = function Checkout2() {
                   return response.data;
                 });
                 checkresult.then(function (result) {
-                  settoken(result.paypaltoken);
+                  settoken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino");
                   setCoinBase(result.coinbase);
                   setCurrency(result.currency); // if (result.currency == "GBP"){
                   //   //  console.log("GBP")
@@ -21131,22 +21131,7 @@ var Checkout2 = function Checkout2() {
     className: "mr-7"
   }, "Total"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", {
     className: "mr-7"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, lastprice))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    className: "text-left w-full md:w-10/12 "
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement((react_coinbase_commerce__WEBPACK_IMPORTED_MODULE_5___default()), {
-    onChargeSuccess: function onChargeSuccess() {
-      console.log("ok");
-      var checkresult = axios__WEBPACK_IMPORTED_MODULE_6___default().get('/api/paidsub/' + subid).then(function (response) {
-        return response.data;
-      });
-      checkresult.then(function (result) {
-        window.location.href = "/completed";
-      });
-    },
-    styled: true,
-    className: "text-center",
-    checkoutId: coinbasetoken
-  })), paypalready ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_paypal_button_v2__WEBPACK_IMPORTED_MODULE_3__.PayPalButton, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, lastprice))), paypalready ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_paypal_button_v2__WEBPACK_IMPORTED_MODULE_3__.PayPalButton, {
     amount: lastprice2,
     shippingPreference: "NO_SHIPPING",
     currency: mycurrency,
