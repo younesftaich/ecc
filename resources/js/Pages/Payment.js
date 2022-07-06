@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { PayPalButton } from "react-paypal-button-v2";
 import { Head } from '@inertiajs/inertia-react'
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
+
 
 import axios from 'axios';
 import queryString from 'query-string'
@@ -14,9 +16,13 @@ const Checkout2 = () => {
     const parsed = queryString.parse(location.search);
     const subid = parsed.subid;
     const [packname,setPackName] = useState("")
+    const [paypalready,setpaypalready] = useState(false)
+    const [realtoken,settoken] = useState(null)
+    const [coinbasetoken,setCoinBase] = useState("")
+    const [mycurrency,setCurrency] = useState("")
     const [lastprice,setLastPrice] = useState(11.99)
     const [lastprice2,setLastPrice2] = useState(11.99)
-    const realtoken = gettoken()
+    //const realtoken = gettoken()
     useEffect(() => {
         if ( subid != null){
            
@@ -24,34 +30,43 @@ const Checkout2 = () => {
           
                 let checkresult =  axios.get('/api/subunique/'+subid).then(response => response.data);   
                 checkresult.then(function(result) {
+                    settoken("AT_HbZuEJeWegk8ljna1YQgkZoyuVCy_qusrpndC5C4TFvBWMZjzfMZpUaJp-I3LoVhTlKg3uTae3Ino")
 
-                    console.log(realtoken)
                 
+                    setCoinBase(result.coinbase)
+                    setCurrency(result.currency)
 
-                    if (result.currency == "GBP"){
-                      //  console.log("GBP")
-                    }
-                    else if (result.currency == "USD"){
-                      //  console.log("USD")
+                    // if (result.currency == "GBP"){
+                    //   //  console.log("GBP")
+                    // }
+                    // else if (result.currency == "USD"){
+                    //   //  console.log("USD")
 
-                      window.location.href = '/usd/payment?subid='+subid;
+                    //   window.location.href = '/usd/payment?subid='+subid;
 
 
-                    }
-                    else if (result.currency == "EUR"){
-                      //  console.log("EUR")
-                      window.location.href = '/eur/payment?subid='+subid;
+                    // }
+                    // else if (result.currency == "EUR"){
+                    //   //  console.log("EUR")
+                    //   window.location.href = '/eur/payment?subid='+subid;
 
-                    }
+                    // }
                     setPackName(result.packagename)
                     setLastPrice(result.packageprice)
                     setLastPrice2(result.total)
+
     
                     })
                      })  ();
         }   
       }, [subid]);
-
+      
+    useEffect(() => {
+        if ( realtoken != null && mycurrency != ""){
+            setpaypalready(true)
+        }
+        
+      }, [realtoken,mycurrency]);
     
    return (
     <div className="font-Poppins font-semibold min-h-screen bg-indigo-100">
@@ -95,12 +110,16 @@ const Checkout2 = () => {
 
             </div>
 
+
+    
+
+{ paypalready ? (
                 <PayPalButton
        amount = {lastprice2}
       shippingPreference="NO_SHIPPING"
-       currency="GBP"
+       currency={mycurrency}
        options={{
-        currency: "GBP",
+        currency: mycurrency,
          clientId: realtoken
        }}
        
@@ -128,6 +147,7 @@ onSuccess={(details, data) => {
 
 }}
 />
+) : ( <h1>Loading ...</h1>)}
                   
 
 <div>

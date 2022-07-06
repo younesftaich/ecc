@@ -4,6 +4,8 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { Head } from '@inertiajs/inertia-react'
 import { gettoken } from "./utils"
 
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
+import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 import axios from 'axios';
 import queryString from 'query-string'
 const Checkout2 = () => {
@@ -11,14 +13,21 @@ const Checkout2 = () => {
     const parsed = queryString.parse(location.search);
     const subid = parsed.subid;
     const [packname,setPackName] = useState("")
+    const [paypalready,setpaypalready] = useState(false)
+    const [realtoken,settoken] = useState(null)
+    const [coinbasetoken,setCoinBase] = useState("")
     const [lastprice,setLastPrice] = useState(11.99)
     const [lastprice2,setLastPrice2] = useState(11.99)
-    const realtoken = gettoken()
+    //const realtoken = gettoken()
     useEffect(() => {
         if ( subid != null){
             (async () => {
                 let checkresult =  axios.get('/api/subunique/'+subid).then(response => response.data);   
                 checkresult.then(function(result) {
+                    
+                    settoken(result.paypaltoken)
+                
+                    setCoinBase(result.coinbase)
                     setPackName(result.packagename)
                     setLastPrice(result.packageprice)
                     setLastPrice2(result.total)
@@ -28,6 +37,12 @@ const Checkout2 = () => {
         }   
       }, [subid]);
 
+      useEffect(() => {
+        if ( realtoken != null){
+            setpaypalready(true)
+        }
+        
+      }, [realtoken]);
     
    return (
     <div className="font-Poppins font-semibold min-h-screen bg-indigo-100">
@@ -71,6 +86,38 @@ const Checkout2 = () => {
 
             </div>
 
+            
+            <div className='text-left w-full md:w-10/12 '>
+
+<div style={{background: 'rgb(242, 169, 0)', outline: 'none'}}  className="mx-auto flex justify-between w-full cursor-pointer rounded-xl  text-white py-3 px-6 border border-transparent rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-offset-white  focus:outline-none transition-colors duration-200 mt-6">
+<CoinbaseCommerceButton 
+
+
+onChargeSuccess={() => {
+
+    console.log("ok")
+    
+    let checkresult =  axios.get('/api/paidsub/'+subid).then(response => response.data);   
+    checkresult.then(function(result) {
+     
+        window.location.href = "/completed";
+
+    })
+
+    
+
+  
+      
+
+}}
+
+styled={false} className="text-center" checkoutId={coinbasetoken}/>
+    </div>
+
+
+</div>
+
+{ paypalready ? (
                 <PayPalButton
        amount = {lastprice2}
       shippingPreference="NO_SHIPPING"
@@ -89,6 +136,7 @@ const Checkout2 = () => {
 
 
 onSuccess={(details, data) => {
+    
     let checkresult =  axios.get('/api/paidsub/'+subid).then(response => response.data);   
     checkresult.then(function(result) {
      
@@ -96,13 +144,18 @@ onSuccess={(details, data) => {
 
     })
 
+    
 
   
       
 
 }}
 />
+) : ( <h1>Loading ...</h1>)}
                   
+
+
+ 
 
 <div>
                     

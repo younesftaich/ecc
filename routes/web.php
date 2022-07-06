@@ -9,6 +9,10 @@ Route::get('/checkout', function () {
     return Inertia::render('FastCheckout');
 });
 //CheckoutRedirect
+Route::get('/order', function () {
+    return Inertia::render('Order');
+});
+//CheckoutRedirect
 Route::get('/ysf', function () {
     return Inertia::render('YsfHome');
 });
